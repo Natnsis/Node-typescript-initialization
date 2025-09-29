@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-
-// Install required package:
-// npm install react-copy-to-clipboard
 
 export default function SetupGuide() {
   const [copied, setCopied] = useState<string | null>(null);
 
-  const copySuccess = (id: string) => {
-    setCopied(id);
-    setTimeout(() => setCopied(null), 2000);
+  const copyToClipboard = async (text: string, id: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(id);
+      setTimeout(() => setCopied(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
   };
 
   // Reusable Code Block with Copy Button
@@ -25,16 +26,15 @@ export default function SetupGuide() {
     language?: string;
   }) => (
     <div className="group relative my-4 rounded-lg bg-gray-900 p-5 text-gray-100 shadow-md">
-      <CopyToClipboard text={children} onCopy={() => copySuccess(id)}>
-        <button
-          className="absolute right-4 top-4 rounded bg-gray-700 px-3 py-1.5 text-sm font-medium text-white opacity-0 transition-opacity hover:bg-gray-600 group-hover:opacity-100"
-          aria-label="Copy code"
-        >
-          {copied === id ? "✅ Copied!" : "📋 Copy"}
-        </button>
-      </CopyToClipboard>
-      <pre className={`overflow-x-auto text-sm`}>
-        <code className="language-bash">{children.trim()}</code>
+      <button
+        onClick={() => copyToClipboard(children, id)}
+        className="absolute right-4 top-4 rounded bg-gray-700 px-3 py-1.5 text-sm font-medium text-white opacity-0 transition-opacity hover:bg-gray-600 group-hover:opacity-100"
+        aria-label="Copy code"
+      >
+        {copied === id ? "✅ Copied!" : "📋 Copy"}
+      </button>
+      <pre className="overflow-x-auto text-sm">
+        <code className={`language-${language}`}>{children.trim()}</code>
       </pre>
     </div>
   );
