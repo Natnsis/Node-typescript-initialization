@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function FileHandlingPage() {
@@ -251,18 +252,18 @@ export default router;`}
 
           {/* Navigation */}
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 pt-6 border-t border-gray-200">
-            <a
+            <Link
               href="/auth"
               className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50"
             >
               🔐 JWT Authentication Guide
-            </a>
-            <a
-              href="/setup"
+            </Link>
+            <Link
+              href="/"
               className="px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-800 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
             >
               ⚙️ Back to Setup Guide
-            </a>
+            </Link>
           </div>
         </div>
       </div>

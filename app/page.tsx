@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function SetupGuide() {
@@ -429,18 +430,18 @@ app.listen(PORT, () => {
 
           {/* Navigation */}
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 pt-6 border-t border-gray-200">
-            <a
+            <Link
               href="/file-handling"
               className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-50"
             >
               📁 File Handling Guide
-            </a>
-            <a
+            </Link>
+            <Link
               href="/auth"
               className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50"
             >
               🔐 JWT Authentication Guide
-            </a>
+            </Link>
           </div>
         </div>
       </div>
