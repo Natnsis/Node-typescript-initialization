@@ -15,7 +15,6 @@ export default function SetupGuide() {
     }
   };
 
-  // Reusable Code Block with Copy Button
   const CodeBlock = ({
     children,
     id,
@@ -25,80 +24,116 @@ export default function SetupGuide() {
     id: string;
     language?: string;
   }) => (
-    <div className="group relative my-4 rounded-lg bg-gray-900 p-5 text-gray-100 shadow-md">
+    <div className="group relative my-6 rounded-xl bg-gray-900 p-5 text-gray-100 shadow-lg border border-gray-800 overflow-hidden">
       <button
         onClick={() => copyToClipboard(children, id)}
-        className="absolute right-4 top-4 rounded bg-gray-700 px-3 py-1.5 text-sm font-medium text-white opacity-0 transition-opacity hover:bg-gray-600 group-hover:opacity-100"
+        className="absolute right-4 top-3.5 z-10 rounded-md bg-gray-700 px-3 py-1.5 text-xs font-semibold text-white opacity-0 transition-all duration-200 hover:bg-gray-600 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-gray-400"
         aria-label="Copy code"
       >
-        {copied === id ? "✅ Copied!" : "📋 Copy"}
+        {copied === id ? (
+          <span className="flex items-center gap-1">
+            <span>✅</span> Copied!
+          </span>
+        ) : (
+          <span className="flex items-center gap-1">
+            <span>📋</span> Copy
+          </span>
+        )}
       </button>
-      <pre className="overflow-x-auto text-sm">
-        <code className={`language-${language}`}>{children.trim()}</code>
+      <pre className="overflow-x-auto text-sm leading-relaxed">
+        <code className={`language-${language} block`}>{children.trim()}</code>
       </pre>
     </div>
   );
 
   return (
-    <div className="mx-auto max-w-5xl bg-white p-6 text-gray-800">
-      <header className="mb-10 text-center">
-        <h1 className="mb-4 text-4xl font-extrabold text-gray-900">
-          🚀 Node.js + Express + TypeScript + Prisma + ESLint + Prettier Starter
-        </h1>
-        <p className="text-lg text-gray-600">
-          Step-by-step setup guide. Copy, paste, run — you’re ready in minutes.
-        </p>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-4">
+      <div className="mx-auto max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+        {/* Header */}
+        <header className="bg-gradient-to-r from-gray-800 to-gray-900 p-8 text-center text-white">
+          <h1 className="mb-3 text-4xl font-bold tracking-tight">
+            🚀 Node.js + Express + TypeScript + Prisma + ESLint + Prettier
+            Starter
+          </h1>
+          <p className="text-gray-300 max-w-2xl mx-auto text-lg">
+            Step-by-step setup guide. Copy, paste, run — you’re ready in
+            minutes.
+          </p>
+        </header>
 
-      <main className="space-y-12">
-        {/* SECTION 1 */}
-        <section>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            1. Initialize Project & Install Core Dependencies
-          </h2>
-          <p className="mb-3">Create project folder and initialize Node.js:</p>
-          <CodeBlock id="init-project">
-            {`mkdir my-express-app
+        <div className="p-6 md:p-8 space-y-10">
+          <main className="space-y-10">
+            {/* SECTION 1 */}
+            <section>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-6 bg-gray-700 rounded-full"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  1. Initialize Project & Install Core Dependencies
+                </h2>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Create project folder and initialize Node.js:
+              </p>
+              <CodeBlock id="init-project">
+                {`mkdir my-express-app
 cd my-express-app
 npm init -y`}
-          </CodeBlock>
+              </CodeBlock>
 
-          <p className="mb-3">Install Express, TypeScript, and dev tools:</p>
-          <CodeBlock id="install-core">
-            {`npm install express cors dotenv
+              <p className="text-gray-600 mb-4">
+                Install Express, TypeScript, and dev tools:
+              </p>
+              <CodeBlock id="install-core">
+                {`npm install express cors dotenv
 npm install --save-dev typescript ts-node @types/express @types/node @types/cors nodemon`}
-          </CodeBlock>
+              </CodeBlock>
 
-          <p className="mb-3">Install Prisma:</p>
-          <CodeBlock id="install-prisma">
-            {`npm install prisma --save-dev
+              <p className="text-gray-600 mb-4">Install Prisma:</p>
+              <CodeBlock id="install-prisma">
+                {`npm install prisma --save-dev
 npm install @prisma/client`}
-          </CodeBlock>
-        </section>
+              </CodeBlock>
+            </section>
 
-        {/* SECTION 2 */}
-        <section>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            2. Initialize TypeScript & Prisma
-          </h2>
-          <p className="mb-3">Generate TypeScript config:</p>
-          <CodeBlock id="init-ts" language="bash">
-            {`npx tsc --init`}
-          </CodeBlock>
+            <hr className="border-gray-200" />
 
-          <p className="mb-3">
-            Initialize Prisma (creates <code>prisma/</code> and{" "}
-            <code>.env</code>):
-          </p>
-          <CodeBlock id="init-prisma" language="bash">
-            {`npx prisma init`}
-          </CodeBlock>
+            {/* SECTION 2 */}
+            <section>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-6 bg-gray-700 rounded-full"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  2. Initialize TypeScript & Prisma
+                </h2>
+              </div>
+              <p className="text-gray-600 mb-4">Generate TypeScript config:</p>
+              <CodeBlock id="init-ts" language="bash">
+                {`npx tsc --init`}
+              </CodeBlock>
 
-          <p className="mb-3">
-            Update <code>prisma/schema.prisma</code> with this starter model:
-          </p>
-          <CodeBlock id="schema-prisma" language="prisma">
-            {`// prisma/schema.prisma
+              <p className="text-gray-600 mb-4">
+                Initialize Prisma (creates{" "}
+                <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">
+                  prisma/
+                </code>{" "}
+                and{" "}
+                <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">
+                  .env
+                </code>
+                ):
+              </p>
+              <CodeBlock id="init-prisma" language="bash">
+                {`npx prisma init`}
+              </CodeBlock>
+
+              <p className="text-gray-600 mb-4">
+                Update{" "}
+                <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">
+                  prisma/schema.prisma
+                </code>{" "}
+                with this starter model:
+              </p>
+              <CodeBlock id="schema-prisma" language="prisma">
+                {`// prisma/schema.prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -123,21 +158,29 @@ model Post {
   author   User   @relation(fields: [authorId], references: [id])
   authorId Int
 }`}
-          </CodeBlock>
+              </CodeBlock>
 
-          <p className="mb-3">Run your first migration:</p>
-          <CodeBlock id="migrate-dev" language="bash">
-            {`npx prisma migrate dev --name init`}
-          </CodeBlock>
-        </section>
+              <p className="text-gray-600 mb-4">Run your first migration:</p>
+              <CodeBlock id="migrate-dev" language="bash">
+                {`npx prisma migrate dev --name init`}
+              </CodeBlock>
+            </section>
 
-        {/* SECTION 3 */}
-        <section>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            3. Configure TypeScript — Update <code>tsconfig.json</code>
-          </h2>
-          <CodeBlock id="tsconfig" language="json">
-            {`{
+            <hr className="border-gray-200" />
+
+            {/* SECTION 3 */}
+            <section>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-6 bg-gray-700 rounded-full"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  3. Configure TypeScript — Update{" "}
+                  <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">
+                    tsconfig.json
+                  </code>
+                </h2>
+              </div>
+              <CodeBlock id="tsconfig" language="json">
+                {`{
   "compilerOptions": {
     "target": "ES2021",
     "module": "commonjs",
@@ -155,16 +198,24 @@ model Post {
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }`}
-          </CodeBlock>
-        </section>
+              </CodeBlock>
+            </section>
 
-        {/* SECTION 4 */}
-        <section>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            4. Create Express Server — <code>src/server.ts</code>
-          </h2>
-          <CodeBlock id="server-ts" language="typescript">
-            {`import express, { Request, Response } from 'express';
+            <hr className="border-gray-200" />
+
+            {/* SECTION 4 */}
+            <section>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-6 bg-gray-700 rounded-full"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  4. Create Express Server —{" "}
+                  <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">
+                    src/server.ts
+                  </code>
+                </h2>
+              </div>
+              <CodeBlock id="server-ts" language="typescript">
+                {`import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -198,16 +249,24 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(\`🚀 Server ready at http://localhost:\${PORT}\`);
 });`}
-          </CodeBlock>
-        </section>
+              </CodeBlock>
+            </section>
 
-        {/* SECTION 5 */}
-        <section>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            5. Add Scripts to <code>package.json</code>
-          </h2>
-          <CodeBlock id="package-json" language="json">
-            {`{
+            <hr className="border-gray-200" />
+
+            {/* SECTION 5 */}
+            <section>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-6 bg-gray-700 rounded-full"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  5. Add Scripts to{" "}
+                  <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">
+                    package.json
+                  </code>
+                </h2>
+              </div>
+              <CodeBlock id="package-json" language="json">
+                {`{
   "name": "my-express-app",
   "version": "1.0.0",
   "scripts": {
@@ -242,19 +301,28 @@ app.listen(PORT, () => {
     "prettier": "^3.0.0"
   }
 }`}
-          </CodeBlock>
-        </section>
+              </CodeBlock>
+            </section>
 
-        {/* SECTION 6 */}
-        <section>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            6. Setup ESLint + Prettier
-          </h2>
-          <p className="mb-3">
-            Create <code>.eslintrc.json</code>:
-          </p>
-          <CodeBlock id="eslintrc" language="json">
-            {`{
+            <hr className="border-gray-200" />
+
+            {/* SECTION 6 */}
+            <section>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-6 bg-gray-700 rounded-full"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  6. Setup ESLint + Prettier
+                </h2>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Create{" "}
+                <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">
+                  .eslintrc.json
+                </code>
+                :
+              </p>
+              <CodeBlock id="eslintrc" language="json">
+                {`{
   "env": {
     "es2021": true,
     "node": true
@@ -286,13 +354,17 @@ app.listen(PORT, () => {
     "no-console": "warn"
   }
 }`}
-          </CodeBlock>
+              </CodeBlock>
 
-          <p className="mb-3">
-            Create <code>.prettierrc.json</code>:
-          </p>
-          <CodeBlock id="prettierrc" language="json">
-            {`{
+              <p className="text-gray-600 mb-4">
+                Create{" "}
+                <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">
+                  .prettierrc.json
+                </code>
+                :
+              </p>
+              <CodeBlock id="prettierrc" language="json">
+                {`{
   "semi": true,
   "trailingComma": "es5",
   "singleQuote": true,
@@ -301,42 +373,77 @@ app.listen(PORT, () => {
   "useTabs": false,
   "arrowParens": "avoid"
 }`}
-          </CodeBlock>
-        </section>
+              </CodeBlock>
+            </section>
 
-        {/* SECTION 7 */}
-        <section>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">
-            7. Run Your Project
-          </h2>
-          <p className="mb-3">Start dev server:</p>
-          <CodeBlock id="run-dev">{`npm run dev`}</CodeBlock>
+            <hr className="border-gray-200" />
 
-          <p className="mb-3">Open Prisma Studio (GUI database viewer):</p>
-          <CodeBlock id="prisma-studio">{`npm run prisma:studio`}</CodeBlock>
+            {/* SECTION 7 */}
+            <section>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-6 bg-gray-700 rounded-full"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  7. Run Your Project
+                </h2>
+              </div>
+              <p className="text-gray-600 mb-4">Start dev server:</p>
+              <CodeBlock id="run-dev">{`npm run dev`}</CodeBlock>
 
-          <div className="mt-6 rounded-lg bg-green-50 p-4 text-green-800">
-            <strong>✅ You now have a full modern stack:</strong>
-            <ul className="mt-2 list-inside list-disc space-y-1">
-              <li>TypeScript + Express backend</li>
-              <li>Prisma ORM with SQLite (or your DB)</li>
-              <li>ESLint + Prettier for code quality</li>
-              <li>Auto-restart with nodemon</li>
-              <li>Prisma Studio for visual DB management</li>
-            </ul>
+              <p className="text-gray-600 mb-4">
+                Open Prisma Studio (GUI database viewer):
+              </p>
+              <CodeBlock id="prisma-studio">{`npm run prisma:studio`}</CodeBlock>
+
+              <div className="mt-6 p-5 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200">
+                <strong className="text-green-800 font-bold">
+                  ✅ You now have a full modern stack:
+                </strong>
+                <ul className="mt-3 list-disc pl-5 space-y-1 text-green-700">
+                  <li>TypeScript + Express backend</li>
+                  <li>Prisma ORM with SQLite (or your DB)</li>
+                  <li>ESLint + Prettier for code quality</li>
+                  <li>Auto-restart with nodemon</li>
+                  <li>Prisma Studio for visual DB management</li>
+                </ul>
+              </div>
+            </section>
+
+            {/* FOOTER TIP */}
+            <div className="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
+              <strong className="text-blue-800 font-bold">💡 Pro Tip:</strong>{" "}
+              Always add{" "}
+              <code className="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-sm">
+                .env
+              </code>{" "}
+              to{" "}
+              <code className="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-sm">
+                .gitignore
+              </code>
+              . Use environment variables for secrets. Generate Prisma Client
+              after schema changes:
+              <CodeBlock id="generate-client" language="bash">
+                {`npx prisma generate`}
+              </CodeBlock>
+            </div>
+          </main>
+
+          {/* Navigation */}
+          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 pt-6 border-t border-gray-200">
+            <a
+              href="/file-handling"
+              className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-50"
+            >
+              📁 File Handling Guide
+            </a>
+            <a
+              href="/auth"
+              className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50"
+            >
+              🔐 JWT Authentication Guide
+            </a>
           </div>
-        </section>
-
-        {/* FOOTER TIP */}
-        <div className="rounded-lg bg-blue-50 p-5 text-blue-800">
-          <strong>💡 Pro Tip:</strong> Always add <code>.env</code> to{" "}
-          <code>.gitignore</code>. Use environment variables for secrets.
-          Generate Prisma Client after schema changes:
-          <CodeBlock id="generate-client" language="bash">
-            {`npx prisma generate`}
-          </CodeBlock>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
